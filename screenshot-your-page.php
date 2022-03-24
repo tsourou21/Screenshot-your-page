@@ -12,6 +12,8 @@
 function enqueue_related_pages_scripts_and_styles(){
 	wp_enqueue_style('screenshot-styles', plugins_url('assets/css/screenshot-your-page.css', __FILE__));
 	wp_enqueue_script('screenshot-script', plugins_url( 'assets/js/screenshot-your-page.js' , __FILE__ ),false,1.0,true);
+    wp_enqueue_script('Html2canvas', 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', array(), false, false);
+	wp_enqueue_script( 'Canvastoimage', 'https://superal.github.io/canvas2image/canvas2image.js', array(), false, false );
 }
 
 add_action('wp_enqueue_scripts','enqueue_related_pages_scripts_and_styles');
