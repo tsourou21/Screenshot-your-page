@@ -11,9 +11,9 @@
 
 function enqueue_screenshot_button_scripts_and_styles(){
 	wp_enqueue_style('screenshot-styles', plugins_url('assets/css/screenshot-your-page.css', __FILE__));
-	wp_enqueue_script('screenshot-script', plugins_url( 'assets/js/screenshot-your-page.js' , __FILE__ ),false,1.0,true);
-    wp_enqueue_script('Html2canvas', 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', array(), false, false);
-	wp_enqueue_script( 'Canvastoimage', 'https://superal.github.io/canvas2image/canvas2image.js', array(), false, false );
+    wp_enqueue_script('Html2canvas', 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', array(), false, true);
+	wp_enqueue_script( 'Canvastoimage', 'https://superal.github.io/canvas2image/canvas2image.js', array(), false, true );
+	wp_enqueue_script('screenshot-script', plugins_url( 'assets/js/screenshot-your-page.js' , __FILE__ ),false, true);
 }
 
 add_action('wp_enqueue_scripts','enqueue_screenshot_button_scripts_and_styles');
@@ -32,14 +32,14 @@ function screenshot_button( $atts ) {
         $atts
     );
     
-    
+    $postid = get_the_ID();
 
 
     ?>
         <div class="container-scrshot-your-page text-center">
-            <div class="row" id="post-<?php   ?>">
+            <div class="row" id="post-<?php echo $postid; ?>">
                 <div class="col-sm-6 col-md-3">
-                    <button id="<?php  ?>" class="scrshot-btn" style="background-color: <?php echo $attributes['color'] ?>"><?php echo $attributes['title'] ?></button>
+                    <button id="<?php echo $postid; ?>" class="scrshot-btn" style="background-color: <?php echo $attributes['color'] ?>"><?php echo $attributes['title'] ?></button>
                 </div>
             </div>
     <?php
