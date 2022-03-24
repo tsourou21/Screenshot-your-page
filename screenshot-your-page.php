@@ -18,49 +18,30 @@ function enqueue_related_pages_scripts_and_styles(){
 
 add_action('wp_enqueue_scripts','enqueue_related_pages_scripts_and_styles');
 
-// WP Query Shortcode For products section in home page
+// Shortcode function for sceenshot button
 function screenshot_button( $atts ) {
 	ob_start();
  
     // define attributes/parameters and their defaults
-    extract( shortcode_atts( array (
-        'title' => 'Page Screenshot',
-        'colour' => '#007BFF',
-    ), $atts ) );
- 
-    // define query arguments based on parameters
-    /*$args = array(
-        'post_type' => $post_type,
-        'order' => $order,
-        'orderby' => $orderby,
-        'posts_per_page' => $posts,
-        'offset' => $offset,
-        'category_name' => $category,
-        'category__not_in' => $exclude_category,
-    );*/
 
-    // run the loop based on the query arguments
+    $attributes = shortcode_atts(
+        array(
+            'title' => 'Page Screenshot',
+            'color' => '',
+         ), 
+        $atts
+    );
+
+
     ?>
         <div class="container-scrshot-your-page text-center">
             <div class="row" id="post-<?php the_ID(); ?>">
-            <?php while ( $query->have_posts() ) : $query->the_post(); ?>
-            <div class="col-sm-6 col-md-3">
-				<div class="hover-blur">
-					<a href="<?php echo get_the_permalink(); ?>" title="<?php echo get_the_title(); ?>">
-						<?php echo the_post_thumbnail( 'medium' ); ?>
-						<div class="overlay">
-							<h3 class="product-text">ΑΓΟΡΑ</h3>
-						</div>
-					</a>
-				</div>
-                <p class="mt-3 mb-0"><?php echo get_the_title(); ?></p>
-                <?php $product = wc_get_product( get_the_ID() ); /* get the WC_Product Object */ ?>
-                <p><?php echo $product->get_price().'€'; ?></p>
-            </div>
-            <?php endwhile; wp_reset_postdata(); ?>
+                <div class="col-sm-6 col-md-3">
+                    <button class="scrshot-btn" style="background-color: <?php echo $attributes['color'] ?>"><?php echo $attributes['title'] ?></button>
+                </div>
             </div>
     <?php
         $myvariable = ob_get_clean();
         return $myvariable;
 }
-add_shortcode( 'screnshot', 'screenshot_button' );
+add_shortcode( 'screenshot', 'screenshot_button' );

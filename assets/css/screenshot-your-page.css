@@ -1,0 +1,17 @@
+.scrshot-btn {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    line-height: 1.5;
+    font-size: 1rem;
+    transition: all .2s;
+}
+
+.scrshot-btn:hover {
+    background-color: #fff;
+    color: #007BFF;
+    border-color: #007BFF;
+    cursor: pointer;
+}
