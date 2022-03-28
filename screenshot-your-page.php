@@ -13,7 +13,7 @@ function enqueue_screenshot_button_scripts_and_styles(){
 	wp_enqueue_style('screenshot-styles', plugins_url('assets/css/screenshot-your-page.css', __FILE__));
     wp_enqueue_script('Html2canvas', 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', array(), false, false);
 	wp_enqueue_script( 'Canvastoimage', 'https://superal.github.io/canvas2image/canvas2image.js', array(), false, false );
-	wp_enqueue_script('screenshot-script', plugins_url( 'assets/js/screenshot-your-page.js' , __FILE__ ),false, false);
+	wp_enqueue_script('screenshot-script', plugins_url( 'assets/js/screenshot-your-page.js' , __FILE__ ), array(), '1.0.0', true);
 }
 
 add_action('wp_enqueue_scripts','enqueue_screenshot_button_scripts_and_styles');
@@ -34,7 +34,6 @@ function screenshot_button( $atts ) {
     
     $postid = get_the_ID();
 
-
     ?>
         <div class="container-scrshot-your-page text-center">
             <div class="row" id="post-<?php echo $postid; ?>">
@@ -42,23 +41,6 @@ function screenshot_button( $atts ) {
                     <button id="button-<?php echo $postid; ?>" class="scrshot-btn" style="background-color: <?php echo $attributes['color'] ?>"><?php echo $attributes['title'] ?></button>
                 </div>
             </div>
-            <script>  
-            document.querySelector('#button-<?php echo $postid; ?>').addEventListener('click', function() {
-                let element = document.getElementsByTagName('body');
-                    const options = {
-                    letterRendering: true
-                    };
-
-                    html2canvas(element, options).then(function(canvas) {      
-                    document.body.appendChild(canvas);
-
-                    const link = document.createElement('a');
-                    link.download = 'scan-and-save.png';
-                    link.href = canvas.toDataURL();
-                    link.click();
-                });
-        }); 
-            </script>
     <?php
         $myvariable = ob_get_clean();
         return $myvariable;
